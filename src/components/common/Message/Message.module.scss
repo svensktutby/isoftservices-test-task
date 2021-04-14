@@ -1,0 +1,48 @@
+@import "src/components/common/styles/base/variables";
+$bg-color: $white;
+$border-color: $color-danger;
+$message-shadow: $shadow;
+$font-size-sm: 0.75rem;
+$tr-time: $transition-time;
+
+.message {
+  padding: 10px;
+
+  text-align: center;
+
+  background-color: $bg-color;
+  border-top: 5px solid $border-color;
+  border-bottom: 5px solid $border-color;
+  border-radius: 0.25rem;
+  box-shadow: $message-shadow;
+
+  animation: shake $tr-time;
+
+  & > p {
+    max-height: 70px;
+    margin-top: 5px;
+    overflow: hidden;
+  }
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: rotate(-2deg);
+  }
+
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: rotate(2deg);
+  }
+}

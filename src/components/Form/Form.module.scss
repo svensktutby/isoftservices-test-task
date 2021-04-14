@@ -1,5 +1,7 @@
-.form {
+@import "src/components/common/styles/base/variables";
+@import "src/components/common/styles/base/mixins";
 
+.form {
   max-width: 300px;
   margin: 0 auto;
 
@@ -13,5 +15,25 @@
 
   & button {
     width: 100%;
+  }
+}
+
+.messageWrapper {
+  @include absolute-center("both");
+
+  z-index: 11;
+}
+
+.message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 300px;
+  max-width: 340px;
+  min-height: 120px;
+
+  & span {
+    text-transform: uppercase;
   }
 }

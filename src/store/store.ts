@@ -12,9 +12,9 @@ type FieldsType = Record<FieldType, IField>;
 
 interface IFormStore {
   fields: FieldsType;
-  isValid: boolean;
 
   changeHandler: (event: ChangeEvent<HTMLInputElement>) => void;
+  validateForm: () => void;
   reset: () => void;
 }
 
@@ -30,16 +30,8 @@ class FormStore implements IFormStore {
     },
   };
 
-  isValid = true;
-
   constructor() {
     makeAutoObservable(this);
-  }
-
-  private validateForm() {
-    const { firstName, lastName } = this.fields;
-
-    this.isValid = !(firstName.error || lastName.error);
   }
 
   changeHandler = (event: ChangeEvent<HTMLInputElement>) => {
@@ -48,25 +40,23 @@ class FormStore implements IFormStore {
 
     this.fields[eventName].value = value;
     this.fields[eventName].error = validate(this.fields[eventName].value);
-
-    this.validateForm();
   };
 
-  submitHandler = () => {
+  validateForm = () => {
     const { firstName, lastName } = this.fields;
 
     firstName.error = validate(firstName.value);
     lastName.error = validate(lastName.value);
 
-    this.validateForm();
-
-    console.log(firstName.value);
-    console.log(lastName.value);
+    return !(firstName.error || lastName.error);
   };
 
   reset = () => {
     this.fields.firstName.value = '';
     this.fields.lastName.value = '';
+
+    this.fields.firstName.error = '';
+    this.fields.lastName.error = '';
   };
 }
 

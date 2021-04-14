@@ -6,26 +6,33 @@ import { formStore } from '../../store/store';
 import { InputText } from '../common/InputText';
 import { Button } from '../common/Button';
 import { Overlay } from '../common/Overlay';
+import { Message } from '../common/Message';
 
 export const Form: FC = observer(() => {
   const [modal, setModal] = useState(false);
 
   const {
-    changeHandler,
-    submitHandler,
     fields: { firstName, lastName },
-    isValid,
+    changeHandler,
+    validateForm,
+    reset,
   } = formStore;
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    submitHandler();
-    setModal(true);
+
+    const isValid = validateForm();
+    isValid && setModal(true);
+  };
+
+  const closeModalHandler = () => {
+    setModal(false);
+    reset();
   };
 
   return (
-    <div className={s.form}>
-      <form onSubmit={onSubmit} noValidate>
+    <div>
+      <form className={s.form} onSubmit={onSubmit} noValidate>
         <InputText
           placeholder="Ваше имя"
           name="firstName"
@@ -43,12 +50,20 @@ export const Form: FC = observer(() => {
           required
         />
 
-        <Button type="submit" disabled={!isValid}>
-          Готово
-        </Button>
+        <Button type="submit">Готово</Button>
       </form>
 
-      {modal && <Overlay closeHandler={() => setModal(false)} />}
+      {modal && (
+        <div>
+          <Overlay closeHandler={closeModalHandler} />
+          <div className={s.messageWrapper}>
+            <Message className={s.message} clickHandler={closeModalHandler}>
+              Здравствуйте,&nbsp;
+              <span>{`${firstName.value} ${lastName.value}`}</span>
+            </Message>
+          </div>
+        </div>
+      )}
     </div>
   );
 });
