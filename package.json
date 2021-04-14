@@ -2,6 +2,11 @@
   "name": "isoftservices-test-task",
   "version": "0.1.0",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/svensktutby/isoftservices-test-task.git"
+  },
+  "homepage": "https://svensktutby.github.io/isoftservices-test-task",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
