@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, FormEvent } from 'react';
 import { observer } from 'mobx-react-lite';
 
 import s from './Form.module.scss';
@@ -14,9 +14,14 @@ export const Form: FC = observer(() => {
     isValid,
   } = formStore;
 
+  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    submitHandler();
+  };
+
   return (
     <div className={s.form}>
-      <form onSubmit={submitHandler} noValidate>
+      <form onSubmit={onSubmit} noValidate>
         <InputText
           placeholder="Ваше имя"
           name="firstName"
@@ -34,7 +39,9 @@ export const Form: FC = observer(() => {
           required
         />
 
-        <Button>Готово</Button>
+        <Button type="submit" disabled={!isValid}>
+          Готово
+        </Button>
       </form>
     </div>
   );

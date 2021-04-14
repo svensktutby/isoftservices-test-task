@@ -1,5 +1,6 @@
-import { ChangeEvent, FormEvent } from 'react';
+import { ChangeEvent } from 'react';
 import { makeAutoObservable } from 'mobx';
+import { validate } from '../utils/validator';
 
 interface IField {
   value: string;
@@ -35,19 +36,34 @@ class FormStore implements IFormStore {
     makeAutoObservable(this);
   }
 
-  changeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    event.persist();
+  private validateForm() {
+    const { firstName, lastName } = this.fields;
 
+    this.isValid = !(firstName.error || lastName.error);
+
+    return this.isValid;
+  }
+
+  changeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     const eventName = name as FieldType;
 
     this.fields[eventName].value = value;
+    this.fields[eventName].error = validate(this.fields[eventName].value);
+
+    this.validateForm();
   };
 
-  submitHandler = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    console.log(this.fields.firstName.value);
-    console.log(this.fields.lastName.value);
+  submitHandler = () => {
+    const { firstName, lastName } = this.fields;
+
+    firstName.error = validate(firstName.value);
+    lastName.error = validate(lastName.value);
+
+    this.validateForm();
+
+    console.log(firstName.value);
+    console.log(lastName.value);
   };
 
   reset = () => {
