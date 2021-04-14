@@ -1,12 +1,15 @@
-import React, { FC, FormEvent } from 'react';
+import React, { FC, FormEvent, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 
 import s from './Form.module.scss';
 import { formStore } from '../../store/store';
 import { InputText } from '../common/InputText';
 import { Button } from '../common/Button';
+import { Overlay } from '../common/Overlay';
 
 export const Form: FC = observer(() => {
+  const [modal, setModal] = useState(false);
+
   const {
     changeHandler,
     submitHandler,
@@ -17,6 +20,7 @@ export const Form: FC = observer(() => {
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     submitHandler();
+    setModal(true);
   };
 
   return (
@@ -43,6 +47,8 @@ export const Form: FC = observer(() => {
           Готово
         </Button>
       </form>
+
+      {modal && <Overlay closeHandler={() => setModal(false)} />}
     </div>
   );
 });

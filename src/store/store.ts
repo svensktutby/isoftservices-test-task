@@ -40,8 +40,6 @@ class FormStore implements IFormStore {
     const { firstName, lastName } = this.fields;
 
     this.isValid = !(firstName.error || lastName.error);
-
-    return this.isValid;
   }
 
   changeHandler = (event: ChangeEvent<HTMLInputElement>) => {
