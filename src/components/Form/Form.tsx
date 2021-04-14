@@ -57,7 +57,11 @@ export const Form: FC = observer(() => {
         <div>
           <Overlay closeHandler={closeModalHandler} />
           <div className={s.messageWrapper}>
-            <Message className={s.message} clickHandler={closeModalHandler}>
+            <Message
+              className={s.message}
+              clickHandler={closeModalHandler}
+              btnText="Закрыть"
+            >
               Здравствуйте,&nbsp;
               <span>{`${firstName.value} ${lastName.value}`}</span>
             </Message>

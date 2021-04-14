@@ -6,12 +6,14 @@ import { Button } from '../Button';
 type PropsType = {
   className?: string;
   clickHandler?: () => void;
+  btnText?: string;
 };
 
 export const Message: FC<PropsType> = ({
   children,
   className,
   clickHandler,
+  btnText = 'Close',
 }) => {
   const messageClassName = `${s.message} ${className ? className : ''}`;
 
@@ -20,7 +22,7 @@ export const Message: FC<PropsType> = ({
       <p>{children}</p>
       {clickHandler && (
         <Button small error onClick={clickHandler}>
-          Close
+          {btnText}
         </Button>
       )}
     </div>

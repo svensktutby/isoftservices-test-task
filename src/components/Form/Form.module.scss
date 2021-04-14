@@ -33,6 +33,10 @@
   max-width: 340px;
   min-height: 120px;
 
+  @media screen and (max-width: $screen-xs) {
+    min-width: 280px;
+  }
+
   & span {
     text-transform: uppercase;
   }
