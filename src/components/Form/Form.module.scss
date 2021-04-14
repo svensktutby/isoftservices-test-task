@@ -1,0 +1,17 @@
+.form {
+
+  max-width: 280px;
+  margin: 0 auto;
+
+  & div {
+    margin-bottom: 10px;
+
+    &:last-of-type {
+      margin-bottom: 32px;
+    }
+  }
+
+  & button {
+    width: 100%;
+  }
+}
