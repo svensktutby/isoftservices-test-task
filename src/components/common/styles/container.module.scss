@@ -1,0 +1,13 @@
+@import "src/components/common/styles/base/variables";
+
+.container {
+  width: 100%;
+  max-width: $screen-xl;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 40px 30px;
+
+  @media screen and (max-width: $screen-sm) {
+    padding: 20px 15px;
+  }
+}

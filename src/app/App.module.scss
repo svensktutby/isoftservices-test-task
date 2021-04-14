@@ -1,0 +1,23 @@
+@import "src/components/common/styles/base/variables";
+
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+
+  h1 {
+    text-align: center;
+    color: $theme-color;
+    text-transform: uppercase;
+
+    span {
+      display: block;
+    }
+  }
+}
+
+.container {
+  composes: container from "../components/common/styles/container.module.scss";
+}

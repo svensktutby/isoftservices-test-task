@@ -1,0 +1,203 @@
+/* PX to REM function
+******************************/
+@function px-rem($px) {
+  @return ($px / 16px) * 1rem;
+}
+
+/* Font size and line height
+******************************/
+@mixin font-size($fs: $font-size, $lh: false) {
+  //fs: $fs; /* Fallback in px */
+  font-size: px-rem($fs);
+
+  @if $lh != false {
+    line-height: ($lh / $fs);
+  }
+}
+
+/* Visually hidden element
+******************************/
+@mixin visually-hidden {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+
+  white-space: nowrap;
+
+  border: 0;
+
+  clip: rect(0 0 0 0);
+}
+
+/* Reset list
+******************************/
+@mixin reset-list {
+  margin-left: 0;
+  padding-left: 0;
+
+  list-style-type: none;
+}
+
+/* Circle
+******************************/
+@mixin circle($size, $color) {
+  width: $size;
+  height: $size;
+
+  background-color: $color;
+  border-radius: $size/2;
+}
+
+/* Centering flex element
+******************************/
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Centering absolute element
+******************************/
+@mixin absolute-center($axis: 'both') {
+  position: absolute;
+
+  @if $axis == 'both' {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  @else if $axis == 'x' {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  @else if $axis == 'y' {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
+
+/* Inline-block
+******************************/
+@mixin inline-block($value: top) {
+  display: inline-block;
+
+  vertical-align: $value;
+}
+
+/* Creates an inner box-shadow for only one side
+******************************/
+@mixin inner-side-shadow(
+  $side: bottom,
+  $size: 20px,
+  $color: rgba($black, 0.25)
+) {
+
+  $helper: round($size * 0.65);
+
+  @if ($side == top) {
+    box-shadow: inset 0 $helper $size (-1)*$helper $color;
+  }
+  @else if ($side == left) {
+    box-shadow: inset $helper 0 $size (-1)*$helper $color;
+  }
+  @else if ($side == right) {
+    box-shadow: inset (-1)*$helper 0 $size (-1)*$helper $color;
+  }
+  @else if ($side == bottom) {
+    box-shadow: inset 0 (-1)*$helper $size (-1)*$helper $color;
+  }
+}
+
+/* Media queries
+******************************/
+@mixin xl {
+
+  @media screen and (max-width: #{$screen-xl}) {
+    @content;
+  }
+} // Extra large devices
+
+@mixin lg {
+
+  @media screen and (max-width: #{$screen-lg}) {
+    @content;
+  }
+} // Large devices
+
+@mixin md {
+
+  @media screen and (max-width: #{$screen-md}) {
+    @content;
+  }
+} // Medium devices
+
+@mixin sm {
+
+  @media screen and (max-width: #{$screen-sm}) {
+    @content;
+  }
+} // Small devices
+
+@mixin xs {
+
+  @media screen and (max-width: #{$screen-xs}) {
+    @content;
+  }
+} // Tiny devices
+
+@mixin retina {
+
+  @media (min-resolution: $retina-dpi), (min-resolution: $retina-dppx) {
+    @content;
+  }
+} // retina 1.5x devices
+
+/* Container for media queries
+******************************/
+@mixin container($screen: xs) {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+
+  @if $screen == xs {
+    max-width: $container-xs;
+    padding-right: $container-indent-xs;
+    padding-left: $container-indent-xs;
+  }
+
+  @else if $screen == sm {
+    max-width: $container-sm;
+    padding-right: $container-indent-sm;
+    padding-left: $container-indent-sm;
+  }
+
+  @else if $screen == md {
+    max-width: $container-md;
+    padding-right: $container-indent-md;
+    padding-left: $container-indent-md;
+  }
+
+  @else if $screen == lg {
+    max-width: $container-lg;
+    padding-right: $container-indent-lg;
+    padding-left: $container-indent-lg;
+  }
+
+  @else if $screen == xl {
+    max-width: $container-xl;
+    padding-right: $container-indent-xl;
+    padding-left: $container-indent-xl;
+  }
+
+  @else if $screen == xxl {
+    max-width: $container-xxl;
+    padding-right: $container-indent-xxl;
+    padding-left: $container-indent-xxl;
+  }
+}
