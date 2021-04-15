@@ -1,4 +1,10 @@
-import React, { FC, FormEvent, useState } from 'react';
+import React, {
+  FC,
+  FormEvent,
+  KeyboardEvent,
+  MouseEvent,
+  useState,
+} from 'react';
 import { observer } from 'mobx-react-lite';
 
 import s from './Form.module.scss';
@@ -25,9 +31,15 @@ export const Form: FC = observer(() => {
     isValid && setModal(true);
   };
 
-  const closeModalHandler = () => {
-    setModal(false);
-    reset();
+  const closeModalHandler = (
+    event: MouseEvent<HTMLElement> | KeyboardEvent<HTMLElement> | undefined,
+  ) => {
+    event?.stopPropagation();
+
+    if (event?.target === event?.currentTarget) {
+      setModal(false);
+      reset();
+    }
   };
 
   return (
@@ -55,8 +67,7 @@ export const Form: FC = observer(() => {
 
       {modal && (
         <div>
-          <Overlay closeHandler={closeModalHandler} />
-          <div className={s.messageWrapper}>
+          <Overlay closeHandler={closeModalHandler}>
             <Message
               className={s.message}
               clickHandler={closeModalHandler}
@@ -65,7 +76,7 @@ export const Form: FC = observer(() => {
               Здравствуйте,&nbsp;
               <span>{`${firstName.value} ${lastName.value}`}</span>
             </Message>
-          </div>
+          </Overlay>
         </div>
       )}
     </div>

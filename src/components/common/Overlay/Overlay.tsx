@@ -1,11 +1,13 @@
-import React, { FC } from 'react';
+import React, { FC, MouseEvent, KeyboardEvent } from 'react';
 
 import s from './Overlay.module.scss';
 import { useLockBodyScroll } from '../../../hooks/useLockBodyScroll';
 import { useKeyPress } from '../../../hooks/useKeyPress';
 
 type PropsType = {
-  closeHandler: () => void;
+  closeHandler: (
+    event?: MouseEvent<HTMLElement> | KeyboardEvent<HTMLElement>,
+  ) => void;
 };
 
 export const Overlay: FC<PropsType> = ({ children, closeHandler }) => {

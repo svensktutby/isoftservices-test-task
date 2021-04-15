@@ -1,11 +1,11 @@
-import React, { FC } from 'react';
+import React, { FC, MouseEvent } from 'react';
 
 import s from './Message.module.scss';
 import { Button } from '../Button';
 
 type PropsType = {
   className?: string;
-  clickHandler?: () => void;
+  clickHandler?: (event?: MouseEvent<HTMLElement>) => void;
   btnText?: string;
 };
 

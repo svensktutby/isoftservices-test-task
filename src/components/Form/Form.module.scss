@@ -18,12 +18,6 @@
   }
 }
 
-.messageWrapper {
-  @include absolute-center("both");
-
-  z-index: 11;
-}
-
 .message {
   display: flex;
   flex-direction: column;

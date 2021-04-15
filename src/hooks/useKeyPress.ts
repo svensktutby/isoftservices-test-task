@@ -1,6 +1,9 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, KeyboardEvent } from 'react';
 
-export const useKeyPress = (targetKey: string, action: () => void) => {
+export const useKeyPress = (
+  targetKey: string,
+  action: (event?: KeyboardEvent<HTMLElement>) => void,
+) => {
   // State for keeping track of whether key is pressed
   const [keyPressed, setKeyPressed] = useState(false);
 
